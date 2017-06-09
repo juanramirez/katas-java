@@ -18,7 +18,7 @@ public class GildedRoseTest {
 
     @Test
     public void thatAGenericItemDegradesQualityValueWhenBeingGreaterThanZero() {
-        Item[] items = new Item[] { new Item("foo", 0, 1) };
+        Item[] items = new Item[] { new Item("foo", 1, 1) };
         GildedRose app = new GildedRose(items);
 
         app.updateQuality();
@@ -28,7 +28,7 @@ public class GildedRoseTest {
 
     @Test
     public void thatTheQualityOfAGenericItemDoesNotBecomeNegative() {
-        Item[] items = new Item[] { new Item("foo", 0, 0) };
+        Item[] items = new Item[] { new Item("foo", 1, 0) };
         GildedRose app = new GildedRose(items);
 
         app.updateQuality();
