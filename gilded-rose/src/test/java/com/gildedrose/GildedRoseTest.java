@@ -5,124 +5,84 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class GildedRoseTest {
-
-    @Test
-    public void thatAGenericItemDegradesSellInValueWhenBeingGreaterThanZero() {
-        Item[] items = new Item[] { new Item("foo", 1, 0) };
+    private GildedRose createSingleItemGildedRoseAndUpdateQuality(String name, int sellIn, int quality) {
+        Item[] items = new Item[] { new Item(name, sellIn, quality) };
         GildedRose app = new GildedRose(items);
 
         app.updateQuality();
+        return app;
+    }
 
+    @Test
+    public void thatAGenericItemDegradesSellInValueWhenBeingGreaterThanZero() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 1, 0);
         assertEquals(0, app.items[0].sellIn);
     }
 
     @Test
     public void thatAGenericItemDegradesQualityValueWhenBeingGreaterThanZero() {
-        Item[] items = new Item[] { new Item("foo", 1, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 1, 1);
         assertEquals(0, app.items[0].quality);
     }
 
     @Test
     public void thatTheQualityOfAGenericItemDoesNotBecomeNegative() {
-        Item[] items = new Item[] { new Item("foo", 1, 0) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 1, 0);
         assertEquals(0, app.items[0].quality);
     }
 
     @Test
     public void thatTheQualityOfAGenericItemDegradesByTwoWhenSellInValueIsZero() {
-        Item[] items = new Item[] { new Item("foo", 0, 2) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 0, 2);
         assertEquals(0, app.items[0].quality);
     }
 
     @Test
     public void thatAgedBrieIncreasesQualityValueWhenBeingLessThan50() {
-        Item[] items = new Item[] { new Item("Aged Brie", 1, 0) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Aged Brie", 1, 0);
 
         assertEquals(1, app.items[0].quality);
     }
 
     @Test
     public void thatTheQualityOfAgedBrieDoesNotBecomeGreaterThan50() {
-        Item[] items = new Item[] { new Item("Aged Brie", 1, 50) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Aged Brie", 1, 50);
         assertEquals(50, app.items[0].quality);
     }
 
     @Test
     public void thatSulfurasDoesNotChangeItsSellInValue() {
-        Item[] items = new Item[] { new Item("Sulfuras, Hand of Ragnaros", 1, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Sulfuras, Hand of Ragnaros", 1, 1);
         assertEquals(1, app.items[0].sellIn);
     }
 
     @Test
     public void thatSulfurasDoesNotChangeItsQualityValue() {
-        Item[] items = new Item[] { new Item("Sulfuras, Hand of Ragnaros", 1, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Sulfuras, Hand of Ragnaros", 1, 1);
         assertEquals(1, app.items[0].quality);
     }
 
     @Test
     public void thatBackstagePassesIncreasesQualityValueWhenSellInValueIsGreaterThan10() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 11, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 11, 1);
         assertEquals(2, app.items[0].quality);
     }
 
     @Test
     public void thatBackstagePassesIncreasesQualityValueByTwoWhenSellInValueIsGreaterThan5ButNotGreaterThan10() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 6, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 6, 1);
         assertEquals(3, app.items[0].quality);
     }
 
     @Test
     public void thatBackstagePassesIncreasesQualityValueByThreeWhenSellInValueIsPositiveButNotGreaterThan5() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 1, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 1, 1);
         assertEquals(4, app.items[0].quality);
     }
 
     @Test
     public void thatBackstagePassesDropsQualityToZeroWhenSellInValueIsZero() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 0, 1) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
-
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 0, 1);
         assertEquals(0, app.items[0].quality);
     }
 }
