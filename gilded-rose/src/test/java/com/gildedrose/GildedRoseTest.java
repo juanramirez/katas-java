@@ -105,4 +105,14 @@ public class GildedRoseTest {
 
         assertEquals(3, app.items[0].quality);
     }
+
+    @Test
+    public void thatBackstagePassesIncreasesQualityValueByThreeWhenSellInValueIsPositiveButNotGreaterThan5() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 1, 1) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(4, app.items[0].quality);
+    }
 }
