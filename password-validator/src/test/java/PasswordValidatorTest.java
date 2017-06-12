@@ -34,4 +34,10 @@ public class PasswordValidatorTest {
 		String password = "AB1Y_PH4T";
 		assertFalse(PasswordValidator.check(password));
 	}
+
+	@Test
+	public void thatValidatorReturnsFalseWithAPasswordWithoutUnderscores() {
+		String password = "ab1YJph4T";
+		assertFalse(PasswordValidator.check(password));
+	}
 }
