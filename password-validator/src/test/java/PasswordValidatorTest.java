@@ -28,4 +28,10 @@ public class PasswordValidatorTest {
         String password = "abcY_phlT";
         assertFalse(PasswordValidator.check(password));
     }
+
+	@Test
+	public void thatValidatorReturnsFalseWhenAPasswordWithoutLowercaseLetters() {
+		String password = "AB1Y_PH4T";
+		assertFalse(PasswordValidator.check(password));
+	}
 }
