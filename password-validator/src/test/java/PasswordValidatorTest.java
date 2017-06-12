@@ -18,19 +18,19 @@ public class PasswordValidatorTest {
 	}
 
 	@Test
-	public void thatValidatorReturnsFalseWhenAPasswordWithoutCapitalLetter() {
+	public void thatValidatorReturnsFalseWithAPasswordWithoutCapitalLetters() {
 		String password = "ab1y_ph4t";
 		assertFalse(PasswordValidator.check(password));
 	}
 
     @Test
-    public void thatValidatorReturnsFalseWhenAPasswordWithoutNumbers() {
+    public void thatValidatorReturnsFalseWithAPasswordWithoutNumbers() {
         String password = "abcY_phlT";
         assertFalse(PasswordValidator.check(password));
     }
 
 	@Test
-	public void thatValidatorReturnsFalseWhenAPasswordWithoutLowercaseLetters() {
+	public void thatValidatorReturnsFalseWithAPasswordWithoutLowercaseLetters() {
 		String password = "AB1Y_PH4T";
 		assertFalse(PasswordValidator.check(password));
 	}
