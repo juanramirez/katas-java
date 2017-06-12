@@ -1,6 +1,6 @@
-public class PasswordValidator {
+class PasswordValidator {
 
-    public static boolean check(String password) {
-        return false;
+    static boolean check(String password) {
+        return password.length() > 8;
     }
 }
