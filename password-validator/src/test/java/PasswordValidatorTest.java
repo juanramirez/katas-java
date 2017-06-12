@@ -16,4 +16,10 @@ public class PasswordValidatorTest {
 		String password = "ab1Y_ph4T";
 		assertTrue(PasswordValidator.check(password));
 	}
+
+	@Test
+	public void thatValidatorReturnsFalseWhenAPasswordWithoutCapitalLetterButMoreThan8CharactersIsGiven() {
+		String password = "ab1y_ph4t";
+		assertFalse(PasswordValidator.check(password));
+	}
 }
