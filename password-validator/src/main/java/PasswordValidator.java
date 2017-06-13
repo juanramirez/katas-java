@@ -3,7 +3,7 @@ import java.util.regex.Pattern;
 
 class PasswordValidator {
 
-    static boolean check(String password) {
+    static boolean isValid(String password) {
         Pattern capitalLettersPattern = Pattern.compile("[A-Z]");
         Pattern lowercaseLettersPattern = Pattern.compile("[a-z]");
         Pattern numbersPattern = Pattern.compile("[0-9]");
