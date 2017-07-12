@@ -1,23 +1,35 @@
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class PasswordValidator {
-
     static boolean isValid(String password) {
-        Pattern capitalLettersPattern = Pattern.compile("[A-Z]");
-        Pattern lowercaseLettersPattern = Pattern.compile("[a-z]");
-        Pattern numbersPattern = Pattern.compile("[0-9]");
-        Pattern underscorePattern = Pattern.compile("_");
+        return hasMoreThanEightCharacters(password)
+                && hasACapitalLetter(password)
+                && hasALowercaseLetter(password)
+                && hasANumber(password)
+                && hasAnUnderscore(password);
+    }
 
-        Matcher capitalLettersMatcher = capitalLettersPattern.matcher(password);
-        Matcher lowercaseLettersMatcher = lowercaseLettersPattern.matcher(password);
-        Matcher numbersMatcher = numbersPattern.matcher(password);
-        Matcher underscoreMatcher = underscorePattern.matcher(password);
+    private static boolean hasMoreThanEightCharacters(String password) {
+        return password.length() > 8;
+    }
 
-        return password.length() > 8
-                && capitalLettersMatcher.find()
-                && lowercaseLettersMatcher.find()
-                && numbersMatcher.find()
-                && underscoreMatcher.find();
+    private static boolean hasAnUnderscore(String password) {
+        return hasPattern(password, "_");
+    }
+
+    private static boolean hasANumber(String password) {
+        return hasPattern(password, "[0-9]");
+    }
+
+    private static boolean hasALowercaseLetter(String password) {
+        return hasPattern(password, "[a-z]");
+    }
+
+    private static boolean hasACapitalLetter(String password) {
+        return hasPattern(password, "[A-Z]");
+    }
+
+    private static boolean hasPattern(String password, String pattern) {
+        return Pattern.compile(pattern).matcher(password).find();
     }
 }
