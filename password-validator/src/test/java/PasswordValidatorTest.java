@@ -4,39 +4,41 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class PasswordValidatorTest {
+	private void assertPasswordTrue(String password) {
+		assertTrue(PasswordValidator.isValid(password));
+	}
+
+	private void assertPasswordFalse(String password) {
+		assertFalse(PasswordValidator.isValid(password));
+	}
+
 	@Test
 	public void thatPasswordIsValidWhenAllRequirementsAreFulfilled() {
-		String password = "ab1Y_ph4T";
-		assertTrue(PasswordValidator.isValid(password));
+		assertPasswordTrue("ab1Y_ph4T");
 	}
 
 	@Test
 	public void thatPasswordIsNotValidWhenAllRequirementsButLengthGreaterThan8AreFulfilled() {
-		String password = "a1Y_ph4T";
-		assertFalse(PasswordValidator.isValid(password));
+		assertPasswordFalse("a1Y_ph4T");
 	}
 
 	@Test
 	public void thatPasswordIsNotValidWhenAllRequirementsButCapitalLettersAreFulfilled() {
-		String password = "ab1y_ph4t";
-		assertFalse(PasswordValidator.isValid(password));
+		assertPasswordFalse("ab1y_ph4t");
 	}
 
     @Test
     public void thatPasswordIsNotValidWhenAllRequirementsButNumbersAreFulfilled() {
-        String password = "abcY_phlT";
-        assertFalse(PasswordValidator.isValid(password));
+		assertPasswordFalse("abcY_phlT");
     }
 
 	@Test
 	public void thatPasswordIsNotValidWhenAllRequirementsButLowercaseLettersAreFulfilled() {
-		String password = "AB1Y_PH4T";
-		assertFalse(PasswordValidator.isValid(password));
+		assertPasswordFalse("AB1Y_PH4T");
 	}
 
 	@Test
 	public void thatPasswordIsNotValidWhenAllRequirementsButUnderscoresAreFulfilled() {
-		String password = "ab1YJph4T";
-		assertFalse(PasswordValidator.isValid(password));
+		assertPasswordFalse("ab1YJph4T");
 	}
 }
