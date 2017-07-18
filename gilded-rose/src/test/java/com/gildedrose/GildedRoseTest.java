@@ -26,15 +26,27 @@ public class GildedRoseTest {
     }
 
     @Test
+    public void thatGenericItemsQualityDegradesByTwoWhenSellInIsZero() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 0, 15);
+        assertEquals(13, app.items[0].quality);
+    }
+
+    @Test
+    public void thatGenericItemsQualityDegradesByTwoWhenSellInIsMinusOne() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", -1, 15);
+        assertEquals(13, app.items[0].quality);
+    }
+
+    @Test
     public void thatGenericItemsQualityDoesNotBecomeNegative() {
         GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 15, 0);
         assertEquals(0, app.items[0].quality);
     }
 
     @Test
-    public void thatGenericItemsQualityDegradesByTwoWhenSellInIsZero() {
-        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 0, 15);
-        assertEquals(13, app.items[0].quality);
+    public void thatGenericItemsQualityDoesNotBecomeNegativeEvenWhenItShouldBeDegradedByTwo() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("foo", 15, 1);
+        assertEquals(0, app.items[0].quality);
     }
 
     @Test
@@ -83,5 +95,23 @@ public class GildedRoseTest {
     public void thatBackstagePassesQualityDropsToZeroWhenSellInIsZero() {
         GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 0, 15);
         assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
+    public void thatBackstagePassesQualityDoesNotBecomeGreaterThan50IfItIsIncreasedByOne() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 11, 50);
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
+    public void thatBackstagePassesQualityDoesNotBecomeGreaterThan50IfItIsIncreasedByTwo() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 6, 49);
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
+    public void thatBackstagePassesQualityDoesNotBecomeGreaterThan50IfItIsIncreasedByThree() {
+        GildedRose app = createSingleItemGildedRoseAndUpdateQuality("Backstage passes to a TAFKAL80ETC concert", 1, 48);
+        assertEquals(50, app.items[0].quality);
     }
 }
