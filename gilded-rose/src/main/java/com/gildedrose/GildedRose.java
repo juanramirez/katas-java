@@ -1,6 +1,8 @@
 package com.gildedrose;
 
 class GildedRose {
+	public static final int minimumQuality = 0;
+	public static final int maximumQuality = 50;
 	Item[] items;
 
 	public GildedRose(Item[] items) {
@@ -12,19 +14,19 @@ class GildedRose {
 			if (!items[i].name.equals("Aged Brie")
 					&& !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
 				if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-					dropGenericItemQuality(items[i]);
+					decreaseQuality(items[i]);
 				}
 			} else {
-				if (items[i].quality < 50) {
+				if (items[i].quality < maximumQuality) {
 					items[i].quality = items[i].quality + 1;
 
 					if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
 						if (items[i].sellIn < 11) {
-							increaseNonLegendaryItemQuality(items[i]);
+							increaseQuality(items[i]);
 						}
 
 						if (items[i].sellIn < 6) {
-							increaseNonLegendaryItemQuality(items[i]);
+							increaseQuality(items[i]);
 						}
 					}
 				}
@@ -38,26 +40,26 @@ class GildedRose {
 				if (!items[i].name.equals("Aged Brie")) {
 					if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
 						if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-							dropGenericItemQuality(items[i]);
+							decreaseQuality(items[i]);
 						}
 					} else {
-						items[i].quality = 0;
+						items[i].quality = minimumQuality;
 					}
 				} else {
-					increaseNonLegendaryItemQuality(items[i]);
+					increaseQuality(items[i]);
 				}
 			}
 		}
 	}
 
-	private void dropGenericItemQuality(Item item) {
-		if (item.quality > 0) {
+	private void decreaseQuality(Item item) {
+		if (item.quality > minimumQuality) {
 			item.quality = item.quality - 1;
 		}
 	}
 
-	private void increaseNonLegendaryItemQuality(Item item) {
-		if (item.quality < 50) {
+	private void increaseQuality(Item item) {
+		if (item.quality < maximumQuality) {
 			item.quality = item.quality + 1;
 		}
 	}
