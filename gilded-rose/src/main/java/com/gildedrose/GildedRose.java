@@ -1,8 +1,6 @@
 package com.gildedrose;
 
 class GildedRose {
-	public static final int minimumQuality = 0;
-	public static final int maximumQuality = 50;
 	Item[] items;
 
 	public GildedRose(Item[] items) {
@@ -11,17 +9,16 @@ class GildedRose {
 
 	public void updateQuality() {
 		for (Item item : items) {
-			if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+			if (!isSulfuras(item)) {
 				decreaseSellIn(item);
 
-				if (!item.name.equals("Aged Brie")
-						&& !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+				if (!isAgedBrie(item) && !isBackstagePass(item)) {
 					decreaseQuality(item);
 				} else {
-					if (item.quality < maximumQuality) {
+					if (item.quality < getMaximumQuality(item)) {
 						increaseQuality(item);
 
-						if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+						if (isBackstagePass(item)) {
 							if (item.sellIn < 10) {
 								increaseQuality(item);
 							}
@@ -34,11 +31,11 @@ class GildedRose {
 				}
 
 				if (item.sellIn < 0) {
-					if (!item.name.equals("Aged Brie")) {
-						if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+					if (!isAgedBrie(item)) {
+						if (!isBackstagePass(item)) {
 							decreaseQuality(item);
 						} else {
-							item.quality = minimumQuality;
+							setMinimumQuality(item);
 						}
 					} else {
 						increaseQuality(item);
@@ -49,18 +46,50 @@ class GildedRose {
 	}
 
 	private void decreaseSellIn(Item item) {
-		item.sellIn = item.sellIn - 1;
+		item.sellIn--;
 	}
 
 	private void decreaseQuality(Item item) {
-		if (item.quality > minimumQuality) {
-			item.quality = item.quality - 1;
+		if (item.quality > getMinimumQuality(item)) {
+			item.quality--;
 		}
 	}
 
 	private void increaseQuality(Item item) {
-		if (item.quality < maximumQuality) {
-			item.quality = item.quality + 1;
+		if (item.quality < getMaximumQuality(item)) {
+			item.quality++;
 		}
+	}
+
+	private void setMinimumQuality(Item item) {
+		item.quality = getMinimumQuality(item);
+	}
+
+	private int getMinimumQuality(Item item) {
+		if (isSulfuras(item)) {
+			return 80;
+		} else {
+			return 0;
+		}
+	}
+
+	private int getMaximumQuality(Item item) {
+		if (isSulfuras(item)) {
+			return 80;
+		} else {
+			return 50;
+		}
+	}
+
+	private boolean isSulfuras(Item item) {
+		return item.name.equals("Sulfuras, Hand of Ragnaros");
+	}
+
+	private boolean isAgedBrie(Item item) {
+		return item.name.equals("Aged Brie");
+	}
+
+	private boolean isBackstagePass(Item item) {
+		return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
 	}
 }
